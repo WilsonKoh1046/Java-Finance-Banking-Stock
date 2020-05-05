@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 public class Bank implements BankOperations {
 
     // To store all of the created accounts
-    private List<Account> DB;
+    private static List<Account> DB;
     private static int bankFund;
 
     public Bank() {
@@ -23,7 +23,7 @@ public class Bank implements BankOperations {
         return DB;
     }
 
-    public void setDB(Account account) {
+    public static void setDB(Account account) {
         DB.add(account);
     }
 

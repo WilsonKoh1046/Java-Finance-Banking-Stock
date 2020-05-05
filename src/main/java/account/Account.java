@@ -17,7 +17,9 @@ public class Account implements Transaction, StockOperations {
     private int debt;
 
     public static Account createAccount(String name) {
-        return new Account(name, UUID.randomUUID());
+        Account newAccount = new Account(name, UUID.randomUUID());
+        Bank.setDB(newAccount); // Add the newly created account to the bank database
+        return newAccount;
     }
 
     public Account(String name, UUID id) {

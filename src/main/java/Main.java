@@ -7,10 +7,15 @@ import bank.*;
 public class Main {
 
     public static void main(String[] args) {
+        Bank bank = new Bank();
         Account acc1 = Account.createAccount("John");
         Account acc2 = Account.createAccount("Marry");
         System.out.println("First account: " + acc1.getName() + " with the id: " + acc1.getId());
         System.out.println("Second account: " + acc2.getName() + " with the id: " + acc2.getId());
+
+        for (Account account: bank.getDB()) {
+            System.out.println(account.getName());
+        }
 
         acc1.setAmount(500);
         acc2.setAmount(2000);
@@ -28,10 +33,6 @@ public class Main {
         System.out.println(acc2.getMyStocks());
         System.out.println(acc2.getAmount());
          */
-
-        Bank bank = new Bank();
-        bank.setDB(acc1);
-        bank.setDB(acc2);
         bank.deleteAccount(acc1);
         bank.deleteAccount(acc2);
         System.out.println(bank.getDB());
