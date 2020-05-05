@@ -8,4 +8,7 @@ public interface Transaction {
 
     void transfer(Account account, int amount);
 
+    // loan or pay debt with bank
+    void debtWithBank(int amount, Mode mode);
+
 }

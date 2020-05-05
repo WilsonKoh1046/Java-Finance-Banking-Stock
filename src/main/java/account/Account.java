@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import bank.Bank;
 import stock.*;
 
 public class Account implements Transaction, StockOperations {
@@ -12,6 +14,7 @@ public class Account implements Transaction, StockOperations {
     private final UUID id;
     private int amount;
     private List<Stock> myStocks;
+    private int debt;
 
     public static Account createAccount(String name) {
         return new Account(name, UUID.randomUUID());
@@ -22,6 +25,7 @@ public class Account implements Transaction, StockOperations {
         this.id = id;
         this.amount = 0;
         this.myStocks = new ArrayList<>();
+        this.debt = 0;
     }
 
     public String getName() {
@@ -46,6 +50,10 @@ public class Account implements Transaction, StockOperations {
 
     public void setAmount(int amount) {
         this.amount += amount;
+    }
+
+    public int getDebt() {
+        return debt;
     }
 
     public Optional<String> checkSufficientFund(int amount) {
@@ -76,6 +84,30 @@ public class Account implements Transaction, StockOperations {
             account.setAmount(amount);
         } else {
             System.out.println("Not enough fund!");
+        }
+    }
+
+    @Override
+    public void debtWithBank(int amount, Mode mode) {
+        // DEBIT for loan with bank
+        if (mode == Mode.DEBIT) {
+            if (Bank.debtwithCustomer(amount, mode)) {
+                this.amount += amount;
+                debt += amount;
+            }
+        } else {
+            if (debt > 0) {
+                Optional<String> sufficientFund = checkSufficientFund(amount);
+                if (sufficientFund.isPresent()) {
+                    Bank.debtwithCustomer(amount, mode);
+                    debt -= amount;
+                    this.amount -= amount;
+                } else {
+                    System.out.println("Insufficient fund to pay the debt!");
+                }
+            } else {
+                System.out.println("You have no debt with bank currently");
+            }
         }
     }
 
