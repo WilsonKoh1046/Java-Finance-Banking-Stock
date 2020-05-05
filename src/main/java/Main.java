@@ -10,34 +10,43 @@ import bank.*;
 public class Main {
 
     public static void main(String[] args) {
-        Bank bank = new Bank();
         Account acc1 = Account.createAccount("John");
         Account acc2 = Account.createAccount("Marry");
         System.out.println("First account: " + acc1.getName() + " with the id: " + acc1.getId());
         System.out.println("Second account: " + acc2.getName() + " with the id: " + acc2.getId());
-
-        for (Account account: bank.getDB()) {
-            System.out.println(account.getName());
-        }
-
         acc1.setAmount(500);
         acc2.setAmount(3000);
 
         /*
+        for (Account account: Bank.getDB()) {
+            System.out.println(account.getName());
+            System.out.println(account.getId());
+            System.out.println(account.getAmount());
+        }
+
+        acc1.transfer(acc2, 500);
+        for (Account account: Bank.getDB()) {
+            System.out.println(account.getName());
+            System.out.println(account.getId());
+            System.out.println(account.getAmount());
+        }
+        */
+        /*
         bank.deleteAccount(acc1);
         bank.deleteAccount(acc2);
-        System.out.println(bank.getDB());
+        System.out.println(Bank.getDB());
 
         acc1.debtWithBank(1000, Mode.DEBIT);
         System.out.println("Acc1 current debt with bank: " + acc1.getDebt());
         System.out.println("Acc1 current amount of fund: " + acc1.getAmount());
-        System.out.println("Bank current fund: " + bank.getBankFund());
+        System.out.println("Bank current fund: " + Bank.getBankFund());
         acc1.debtWithBank(100, Mode.CREDIT);
         System.out.println("Acc1 current debt with bank: " + acc1.getDebt());
         System.out.println("Acc1 current amount of fund: " + acc1.getAmount());
-        System.out.println("Bank current fund: " + bank.getBankFund());
+        System.out.println("Bank current fund: " + Bank.getBankFund());
          */
 
+        /*
         List<Stock> stock_list = List.of(
                 new Stock("apple", StockType.HIGH, 1000),
                 new Stock("apple2", StockType.HIGH, 2000),
@@ -97,5 +106,6 @@ public class Main {
         StockMarket.getStock_pool().forEach(stock -> {
             System.out.println(stock.getName());
         });
+         */
     }
 }

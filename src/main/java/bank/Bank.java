@@ -7,19 +7,15 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class Bank implements BankOperations {
+public class Bank {
 
     // To store all of the created accounts
-    private static List<Account> DB;
-    private static int bankFund;
+    private static List<Account> DB = new ArrayList<>();
+    private static int bankFund = 10000; // We have 10000 as our default bank fund
 
-    public Bank() {
-        DB = new ArrayList<>();
-        // We have 10000 as our default bank fund
-        bankFund = 10000;
-    }
+    public Bank() {}
 
-    public List<Account> getDB() {
+    public static List<Account> getDB() {
         return DB;
     }
 
@@ -27,7 +23,7 @@ public class Bank implements BankOperations {
         DB.add(account);
     }
 
-    public int getBankFund() {
+    public static int getBankFund() {
         return bankFund;
     }
 
@@ -56,8 +52,7 @@ public class Bank implements BankOperations {
         return decision;
     }
 
-    @Override
-    public void deleteAccount(Account account) {
+    public static void deleteAccount(Account account) {
         Optional<Account> targeted_account = DB.stream()
                 .filter(a -> a.getName().equals(account.getName()) && a.getId().equals(account.getId()))
                 .findFirst();
