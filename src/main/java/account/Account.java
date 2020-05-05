@@ -1,9 +1,6 @@
 package account;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
+import java.util.*;
 
 import bank.Bank;
 import stock.*;
@@ -125,6 +122,7 @@ public class Account implements Transaction, StockOperations {
             if (sufficientFund.isPresent()) {
                 myStocks.add(targeted_stock.get());
                 this.amount -= targeted_stock.get().getPrice();
+                StockMarket.setStock_pool(targeted_stock.get(), this, StockOperationType.BUY);
             } else {
                 System.out.println("No enough fund!");
             }
@@ -138,5 +136,39 @@ public class Account implements Transaction, StockOperations {
         Optional<Stock> targeted_stock = myStocks.stream()
                 .filter(s -> s.getName().equals(name) && s.getType().equals(type))
                 .findFirst();
+
+        if (targeted_stock.isPresent()) {
+            StockMarket.setStock_pool(targeted_stock.get(), this, StockOperationType.SELL);
+            myStocks.remove(targeted_stock.get());
+        } else {
+            System.out.println("No such stock in inventory!");
+        }
+    }
+
+    @Override
+    public void buySoldStock(String stockName, StockType stockType, int stockPrice) {
+        // We only concern about the stock itself, so it doesn't matter who the seller (account) is
+        // We define the price we want to buy the stock (temporarily)
+        boolean found = false;
+        List<Map<Stock, Account>> list_of_sold_stocks = StockMarket.getSold_stocks();
+        // CANNOT use forEach or for(type var: list), will cause ConcurrentModificationException
+        for (int i = 0; i < list_of_sold_stocks.size(); i++) {
+            for (Map.Entry<Stock, Account> entry: list_of_sold_stocks.get(i).entrySet()) {
+                Stock targeted_stock = entry.getKey();
+                Account targeted_account = entry.getValue();
+                if (targeted_stock.getName().equals(stockName) && targeted_stock.getType().equals(stockType)) {
+                    StockMarket.setSold_stocks(targeted_account, targeted_stock, StockOperationType.BUY);
+                    myStocks.add(targeted_stock);
+                    transfer(targeted_account, stockPrice);
+                    found = true;
+                    break;
+                }
+            }
+        }
+        if (!found) {
+            System.out.println("No such package found!");
+        } else {
+            System.out.println("Trading successful");
+        }
     }
 }
