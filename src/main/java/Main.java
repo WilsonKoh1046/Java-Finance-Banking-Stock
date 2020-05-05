@@ -21,18 +21,6 @@ public class Main {
         acc2.setAmount(2000);
 
         /*
-        List<Stock> stock_list = List.of(
-                new Stock("apple", StockType.HIGH, 1000),
-                new Stock("banana", StockType.MEDIUM, 500),
-                new Stock("orange", StockType.LOW, 200)
-        );
-
-        StockMarket stockMarket = new StockMarket(stock_list);
-        acc2.buyStock("banana", StockType.MEDIUM);
-        acc2.buyStock("orange", StockType.LOW);
-        System.out.println(acc2.getMyStocks());
-        System.out.println(acc2.getAmount());
-         */
         bank.deleteAccount(acc1);
         bank.deleteAccount(acc2);
         System.out.println(bank.getDB());
@@ -45,5 +33,18 @@ public class Main {
         System.out.println("Acc1 current debt with bank: " + acc1.getDebt());
         System.out.println("Acc1 current amount of fund: " + acc1.getAmount());
         System.out.println("Bank current fund: " + bank.getBankFund());
+         */
+
+        List<Stock> stock_list = List.of(
+                // new Stock("apple", StockType.HIGH, 1000),
+                // new Stock("apple2", StockType.HIGH, 2000),
+                // new Stock("apple3", StockType.HIGH, 3000),
+                new Stock("banana", StockType.LOW, 5000),
+                new Stock("banana2", StockType.MEDIUM, 4000),
+                new Stock("orange", StockType.LOW, 6000)
+        );
+
+        StockMarket stockMarket = new StockMarket(stock_list);
+        System.out.println(stockMarket.computeBestStock());
     }
 }
