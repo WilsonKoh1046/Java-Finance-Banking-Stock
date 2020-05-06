@@ -46,7 +46,6 @@ public class Main {
         System.out.println("Bank current fund: " + Bank.getBankFund());
          */
 
-        /*
         List<Stock> stock_list = List.of(
                 new Stock("apple", StockType.HIGH, 1000),
                 new Stock("apple2", StockType.HIGH, 2000),
@@ -83,8 +82,10 @@ public class Main {
                 StockMarket.setSold_stocks(targeted_account, targeted_stock, StockOperationType.BUY);
                 System.out.println("Stock : " + targeted_stock.getName() + ", Account: " + targeted_account.getName());
             }
-        };
+        }
 
+        System.out.println(acc1.viewAvailableSoldStock());
+        /*
         acc1.buySoldStock("apple3", StockType.HIGH, 300);
         System.out.println("Acc1 current fund: " + acc1.getAmount());
         System.out.println("Acc1 current stock inventory: ");
@@ -101,11 +102,12 @@ public class Main {
                 StockMarket.setSold_stocks(targeted_account, targeted_stock, StockOperationType.BUY);
                 System.out.println("Stock : " + targeted_stock.getName() + ", Account: " + targeted_account.getName());
             }
-        };
+        }
         System.out.println("Stock market: ");
         StockMarket.getStock_pool().forEach(stock -> {
             System.out.println(stock.getName());
         });
+
          */
     }
 }

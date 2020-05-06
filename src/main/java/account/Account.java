@@ -110,6 +110,8 @@ public class Account implements Transaction, StockOperations {
         }
     }
 
+
+
     @Override
     public void buyStock(String name, StockType type) {
         List<Stock> stocks = StockMarket.getStock_pool();
@@ -170,5 +172,19 @@ public class Account implements Transaction, StockOperations {
         } else {
             System.out.println("Trading successful");
         }
+    }
+
+    @Override
+    public List<String> viewAvailableSoldStock() {
+        List<Map<Stock, Account>> list_of_sold_stocks = StockMarket.getSold_stocks();
+        List<String> result = new ArrayList<>();
+        for (int i = 0; i < list_of_sold_stocks.size(); i++) {
+            for (Map.Entry<Stock, Account> entry: list_of_sold_stocks.get(i).entrySet()) {
+                Stock stock = entry.getKey();
+                String stock_for_sale = "(Name: " + stock.getName() + ", Type: " + stock.getType().toString() + ", Price: " + String.valueOf(stock.getPrice()) + ")";
+                result.add(stock_for_sale);
+            }
+        }
+        return result;
     }
 }
