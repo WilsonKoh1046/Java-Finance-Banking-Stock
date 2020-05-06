@@ -12,6 +12,7 @@ public class Bank {
     // To store all of the created accounts
     private static List<Account> DB = new ArrayList<>();
     private static int bankFund = 10000; // We have 10000 as our default bank fund
+    private static int loan = 0; // Track the total loan given by bank to all the accounts
 
     public Bank() {}
 
@@ -27,6 +28,23 @@ public class Bank {
         return bankFund;
     }
 
+    public static int getLoan() {
+        return loan;
+    }
+
+
+    public static void setLoan(int loanAmount, Mode mode) {
+        if (mode == Mode.CREDIT) {
+            loan -= loanAmount;
+        } else {
+            loan += loanAmount;
+        }
+    }
+
+    public static int checkIndividualDebt(Account account) {
+        return account.getDebt();
+    }
+
     public static boolean debtwithCustomer(int amount, Mode mode) {
         if (mode == Mode.CREDIT) { // customer pay back debt
             bankFund += amount;
@@ -39,6 +57,7 @@ public class Bank {
                 return false;
             }
         }
+        setLoan(amount, mode);
         return true;
     }
 

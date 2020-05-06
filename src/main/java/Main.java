@@ -17,6 +17,28 @@ public class Main {
         acc1.setAmount(500);
         acc2.setAmount(3000);
 
+        System.out.println("Bank loan before giving loan to Acc1: " + Bank.getLoan());
+        acc1.debtWithBank(1000, Mode.DEBIT);
+        System.out.println("Acc1 current fund after getting loan from bank: " + acc1.getAmount());
+        System.out.println("Acc1 current debt after getting loan from bank: " + acc1.getDebt());
+        System.out.println("Bank fund after giving loan to Acc1: " + Bank.getBankFund());
+        System.out.println("Bank loan after giving loan to Acc1: " + Bank.getLoan());
+        System.out.println("Bank checking Acc1's debt: " + Bank.checkIndividualDebt(acc1));
+        System.out.println();
+        acc2.debtWithBank(2000, Mode.DEBIT);
+        System.out.println("Acc2 current fund after getting loan from bank: " + acc2.getAmount());
+        System.out.println("Acc2 current debt after getting loan from bank: " + acc2.getDebt());
+        System.out.println("Bank fund after giving loan to Acc2: " + Bank.getBankFund());
+        System.out.println("Bank loan after giving loan to Acc2: " + Bank.getLoan());
+        System.out.println("Bank checking Acc2's debt: " + Bank.checkIndividualDebt(acc2));
+        System.out.println();
+        acc1.debtWithBank(500, Mode.CREDIT);
+        System.out.println("Acc1 current fund after paying bank: " + acc1.getAmount());
+        System.out.println("Acc2 current debt after paying bank: " + acc1.getDebt());
+        System.out.println("Bank fund after receiving payment from Acc1: " + Bank.getBankFund());
+        System.out.println("Bank loan after receiving payment from Acc1: " + Bank.getLoan());
+        System.out.println("Bank checking Acc1's debt: " + Bank.checkIndividualDebt(acc1));
+
         /*
         for (Account account: Bank.getDB()) {
             System.out.println(account.getName());
@@ -46,6 +68,7 @@ public class Main {
         System.out.println("Bank current fund: " + Bank.getBankFund());
          */
 
+        /*
         List<Stock> stock_list = List.of(
                 new Stock("apple", StockType.HIGH, 1000),
                 new Stock("apple2", StockType.HIGH, 2000),
@@ -84,7 +107,7 @@ public class Main {
             }
         }
 
-        System.out.println(acc1.viewAvailableSoldStock());
+        System.out.println(acc1.viewAvailableSoldStock()); */
         /*
         acc1.buySoldStock("apple3", StockType.HIGH, 300);
         System.out.println("Acc1 current fund: " + acc1.getAmount());
