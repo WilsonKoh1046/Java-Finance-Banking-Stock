@@ -63,5 +63,10 @@ public class Main {
         // System.out.println("Acc 3 current company: " + acc3.getCompany().getCompanyName());
         System.out.println("Acc3 current salary: " + acc3.getMonthlySalary());
         System.out.println("Company 1 total employee pay check: " + company1.getTotalEmployeePayCheck());
+
+        department1.setDepartmentProfit(5000);
+        department2.setDepartmentProfit(3000);
+        department3.setDepartmentProfit(4000);
+        System.out.println("Company 1 total profit: " + company1.getCompanyProfit());
     }
 }

@@ -6,6 +6,7 @@ import bank.Bank;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public abstract class CompanyManagement {
 
@@ -49,5 +50,24 @@ public abstract class CompanyManagement {
         } else {
             System.out.println("No such department!");
         }
+    }
+
+    public int getTotalDepartmentsProfit(Company company) {
+        int totalProfit = 0;
+        List<Department> acquired_department;
+        try {
+            acquired_department = getList_of_departments().stream()
+                    .filter(d -> d.getCompany().getCompanyName().equals(company.getCompanyName()))
+                    .collect(Collectors.toList());
+        } catch(NullPointerException e) {
+            acquired_department = null;
+        }
+        if (Optional.ofNullable(acquired_department).isPresent()) {
+            for (Department department: acquired_department) {
+                totalProfit += department.getDepartmentProfit();
+            }
+            return totalProfit;
+        }
+        return 0;
     }
 }

@@ -15,6 +15,7 @@ public class Company extends CompanyManagement {
     private CompanyType companyType;
     private int companyFund;
     private int totalEmployeePayCheck;
+    private int companyProfit;
 
     public Company(String companyName, String companyEmail, CompanyType companyType, int companyFund) {
         this.companyName = companyName;
@@ -22,6 +23,7 @@ public class Company extends CompanyManagement {
         this.companyType = companyType;
         this.companyFund = companyFund;
         this.totalEmployeePayCheck = 0;
+        this.companyProfit = 0;
     }
 
     public String getCompanyName() {
@@ -93,5 +95,9 @@ public class Company extends CompanyManagement {
         } else {
             System.out.println("No such employee!");
         }
+    }
+
+    public int getCompanyProfit() {
+        return getTotalDepartmentsProfit(this);
     }
 }
