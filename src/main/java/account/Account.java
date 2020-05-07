@@ -7,7 +7,7 @@ import enterprises.Company;
 import enterprises.CompanyManagement;
 import stock.*;
 
-public class Account extends CompanyManagement implements Transaction, StockOperations {
+public class Account implements Transaction, StockOperations {
 
     private final String name;
     private final UUID id;
