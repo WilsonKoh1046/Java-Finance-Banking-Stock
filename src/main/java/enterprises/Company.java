@@ -14,12 +14,14 @@ public class Company extends CompanyManagement {
     private String companyEmail;
     private CompanyType companyType;
     private int companyFund;
+    private int totalEmployeePayCheck;
 
     public Company(String companyName, String companyEmail, CompanyType companyType, int companyFund) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyType = companyType;
         this.companyFund = companyFund;
+        this.totalEmployeePayCheck = 0;
     }
 
     public String getCompanyName() {
@@ -66,11 +68,30 @@ public class Company extends CompanyManagement {
         this.companyFund = companyFund;
     }
 
+    public int getTotalEmployeePayCheck() {
+        return totalEmployeePayCheck;
+    }
+
+    public void setTotalEmployeePayCheck(int totalEmployeePayCheck) {
+        this.totalEmployeePayCheck = totalEmployeePayCheck;
+    }
+
     public void hireEmployee(Department department, Account account, int salary) { ;
         if (Optional.ofNullable(account).isPresent()) {
             assignEmployee(department, account, salary, this);
+            totalEmployeePayCheck += salary;
         } else {
             System.out.println("No such account!");
+        }
+    }
+
+    public void fireEmployee(Department department, Account account) {
+        if (Optional.ofNullable(account).isPresent()) {
+            int employee_current_salary = account.getMonthlySalary();
+            removeEmployee(department, account);
+            totalEmployeePayCheck -= employee_current_salary;
+        } else {
+            System.out.println("No such employee!");
         }
     }
 }

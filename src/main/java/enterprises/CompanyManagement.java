@@ -34,4 +34,20 @@ public abstract class CompanyManagement {
             System.out.println("No such department!");
         }
     }
+
+    public static void removeEmployee(Department department, Account account) {
+        Optional<Department> targeted_department = getList_of_departments().stream()
+                .filter(d -> d.getDepartmentName().equals(department.getDepartmentName()))
+                .findFirst();
+        Optional<Account> targeted_account = Bank.getDB().stream()
+                .filter(a -> a.getId() == account.getId())
+                .findFirst();
+        if (targeted_account.isPresent() && targeted_department.isPresent()) {
+            targeted_department.get().getEmployees().remove(account);
+            targeted_account.get().setMonthlySalary(0);
+            targeted_account.get().setCompany(null);
+        } else {
+            System.out.println("No such department!");
+        }
+    }
 }
