@@ -3,28 +3,34 @@ package account;
 import java.util.*;
 
 import bank.Bank;
+import enterprises.Company;
+import enterprises.CompanyManagement;
 import stock.*;
 
-public class Account implements Transaction, StockOperations {
+public class Account extends CompanyManagement implements Transaction, StockOperations {
 
     private final String name;
     private final UUID id;
     private int amount;
     private List<Stock> myStocks;
     private int debt;
+    private int monthlySalary;
+    private Company company;
 
-    public static Account createAccount(String name) {
-        Account newAccount = new Account(name, UUID.randomUUID());
-        Bank.setDB(newAccount); // Add the newly created account to the bank database
+    public static Account createAccount(String name, int monthlySalary, Company company) {
+        Account newAccount = new Account(name, UUID.randomUUID(), monthlySalary, company);
         return newAccount;
     }
 
-    public Account(String name, UUID id) {
+    public Account(String name, UUID id, int monthlySalary, Company company) {
         this.name = name;
         this.id = id;
         this.amount = 0;
         this.myStocks = new ArrayList<>();
         this.debt = 0;
+        this.monthlySalary = monthlySalary;
+        this.company = company;
+        Bank.setDB(this); // Add the newly created account to the bank database
     }
 
     public String getName() {
@@ -63,6 +69,22 @@ public class Account implements Transaction, StockOperations {
             decision = Optional.ofNullable(null);
         }
         return decision;
+    }
+
+    public int getMonthlySalary() {
+        return monthlySalary;
+    }
+
+    public void setMonthlySalary(int monthlySalary) {
+        this.monthlySalary = monthlySalary;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

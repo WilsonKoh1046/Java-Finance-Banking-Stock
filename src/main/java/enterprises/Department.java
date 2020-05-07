@@ -2,7 +2,9 @@ package enterprises;
 
 import account.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class Department extends CompanyManagement {
 
@@ -10,9 +12,9 @@ public class Department extends CompanyManagement {
     private List<Account> employees;
     private Company company;
 
-    public Department(String departmentName, List<Account> employees, Company company) {
+    public Department(String departmentName, Company company) {
         this.departmentName = departmentName;
-        this.employees = employees;
+        this.employees = new ArrayList<>();
         this.company = company;
         setList_of_departments(this);
     }
@@ -29,8 +31,8 @@ public class Department extends CompanyManagement {
         return employees;
     }
 
-    public void setEmployees(List<Account> employees) {
-        this.employees = employees;
+    public void addEmployees(Account employee) {
+        this.employees.add(employee);
     }
 
     public Company getCompany() {

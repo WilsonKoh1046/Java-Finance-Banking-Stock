@@ -10,8 +10,14 @@ import bank.*;
 public class Main {
 
     public static void main(String[] args) {
-        Account acc1 = Account.createAccount("John");
-        Account acc2 = Account.createAccount("Marry");
+        Account acc1 = Account.createAccount("John", 3000, null);
+        Account acc2 = Account.createAccount("Marry", 4000, null);
+        for (Account account: Bank.getDB()) {
+            System.out.println(account.getName());
+        }
+        /*
+        Account acc1 = Account.createAccount("John", 3000, null);
+        Account acc2 = Account.createAccount("Marry", 4000, null);
         System.out.println("First account: " + acc1.getName() + " with the id: " + acc1.getId());
         System.out.println("Second account: " + acc2.getName() + " with the id: " + acc2.getId());
         acc1.setAmount(500);
@@ -38,6 +44,7 @@ public class Main {
         System.out.println("Bank fund after receiving payment from Acc1: " + Bank.getBankFund());
         System.out.println("Bank loan after receiving payment from Acc1: " + Bank.getLoan());
         System.out.println("Bank checking Acc1's debt: " + Bank.checkIndividualDebt(acc1));
+         */
 
         /*
         for (Account account: Bank.getDB()) {

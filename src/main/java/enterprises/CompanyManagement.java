@@ -1,7 +1,11 @@
 package enterprises;
 
+import account.Account;
+import bank.Bank;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public abstract class CompanyManagement {
 
@@ -13,5 +17,21 @@ public abstract class CompanyManagement {
 
     public static List<Department> getList_of_departments() {
         return list_of_departments;
+    }
+
+    public static void assignEmployee(Department department, Account account, int salary, Company company) {
+        Optional<Department> targeted_department = getList_of_departments().stream()
+                .filter(d -> d.getDepartmentName().equals(department.getDepartmentName()))
+                .findFirst();
+        Optional<Account> targeted_account = Bank.getDB().stream()
+                .filter(a -> a.getId() == account.getId())
+                .findFirst();
+        if (targeted_account.isPresent() && targeted_department.isPresent()) {
+            targeted_department.get().addEmployees(account);
+            targeted_account.get().setCompany(company);
+            targeted_account.get().setMonthlySalary(salary);
+        } else {
+            System.out.println("No such department!");
+        }
     }
 }

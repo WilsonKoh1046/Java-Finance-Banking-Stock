@@ -7,37 +7,38 @@ import java.util.List;
 import java.util.UUID;
 
 import account.*;
+import bank.Bank;
 
 public class Main {
 
     public static void main(String[] args) {
         List<Account> employees = List.of(
-                new Account("john", UUID.randomUUID()),
-                new Account("mary", UUID.randomUUID())
+                new Account("john", UUID.randomUUID(), 3000, null),
+                new Account("mary", UUID.randomUUID(), 3000, null)
         );
         List<Account> employees2 = List.of(
-                new Account("simon", UUID.randomUUID()),
-                new Account("jane", UUID.randomUUID())
+                new Account("simon", UUID.randomUUID(), 4000, null),
+                new Account("jane", UUID.randomUUID(), 4000, null)
         );
-        Company company1 = new Company("Apple", "apple@email.com", CompanyType.PROFIT);
-        Company company2 = new Company("Banana", "banana@email.com", CompanyType.NONPROFIT);
+        Company company1 = new Company("Apple", "apple@email.com", CompanyType.PROFIT, 10000);
+        Company company2 = new Company("Banana", "banana@email.com", CompanyType.NONPROFIT, 15000);
         System.out.println(company1.getDepartmentList());
         System.out.println(company2.getDepartmentList());
-        Department department1 = new Department("finance", employees, company1);
-        Department department2 = new Department("technical", employees2, company1);
-        Department department3 = new Department("security", employees2, company1);
-        Department department4 = new Department("fashion", employees, company2);
-        Department department5 = new Department("music", employees2, company2);
-        Department department6 = new Department("culinary", employees2, company2);
-        System.out.println("Company 1 current list of departments: ");
-        for (Department departmentname: company1.getDepartmentList()) {
-            System.out.println(departmentname.getDepartmentName());
-            System.out.println(departmentname.getEmployees());
+        Department department1 = new Department("finance", company1);
+        Department department2 = new Department("technical", company1);
+        Department department3 = new Department("security", company1);
+        Department department4 = new Department("fashion", company2);
+        Department department5 = new Department("music", company2);
+        Department department6 = new Department("culinary", company2);
+        System.out.println();
+        Account acc3 = new Account("peter", UUID.randomUUID(), 0, null);
+        company1.hireEmployee(department1, acc3, 5000);
+        System.out.println("Department 1 of Company 1 current employee: ");
+        for (Account employee: department1.getEmployees()) {
+            System.out.println(employee.getName());
         }
-        System.out.println("Company 2 current list of departments: ");
-        for (Department departmentname: company2.getDepartmentList()) {
-            System.out.println(departmentname.getDepartmentName());
-            System.out.println(departmentname.getEmployees());
-        }
+        System.out.println();
+        System.out.println("Acc 3 current company: " + acc3.getCompany().getCompanyName());
+        System.out.println("Acc3 current salary: " + acc3.getMonthlySalary());
     }
 }
