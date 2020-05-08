@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.UUID;
 
 import account.*;
+import analysis.EnterprisesAnalysis;
 import bank.Bank;
 
 public class Main {
@@ -68,5 +69,10 @@ public class Main {
         department2.setDepartmentProfit(3000);
         department3.setDepartmentProfit(4000);
         System.out.println("Company 1 total profit: " + company1.getCompanyProfit());
+        System.out.println();
+        System.out.println("Enterprise analysis current collection: ");
+        for (Company company: EnterprisesAnalysis.getList_of_company()) {
+            System.out.println(company.getCompanyName());
+        }
     }
 }

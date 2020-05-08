@@ -1,6 +1,7 @@
 package enterprises;
 
 import account.Account;
+import analysis.EnterprisesAnalysis;
 import bank.Bank;
 
 import java.util.ArrayList;
@@ -8,19 +9,23 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class CompanyManagement {
+public class CompanyManagement {
 
     private static List<Department> list_of_departments = new ArrayList<>();
 
-    public static void setList_of_departments(Department department) {
+    public void addNewCompanyToList(Company company) {
+        EnterprisesAnalysis.addNewCompany(company);
+    }
+
+    protected void setList_of_departments(Department department) {
         list_of_departments.add(department);
     }
 
-    public static List<Department> getList_of_departments() {
+    protected List<Department> getList_of_departments() {
         return list_of_departments;
     }
 
-    public static void assignEmployee(Department department, Account account, int salary, Company company) {
+    protected void assignEmployee(Department department, Account account, int salary, Company company) {
         Optional<Department> targeted_department = getList_of_departments().stream()
                 .filter(d -> d.getDepartmentName().equals(department.getDepartmentName()))
                 .findFirst();
@@ -36,7 +41,7 @@ public abstract class CompanyManagement {
         }
     }
 
-    public static void removeEmployee(Department department, Account account) {
+    protected void removeEmployee(Department department, Account account) {
         Optional<Department> targeted_department = getList_of_departments().stream()
                 .filter(d -> d.getDepartmentName().equals(department.getDepartmentName()))
                 .findFirst();
@@ -52,7 +57,7 @@ public abstract class CompanyManagement {
         }
     }
 
-    public int getTotalDepartmentsProfit(Company company) {
+    protected int getTotalDepartmentsProfit(Company company) {
         int totalProfit = 0;
         List<Department> acquired_department;
         try {

@@ -24,6 +24,7 @@ public class Company extends CompanyManagement {
         this.companyFund = companyFund;
         this.totalEmployeePayCheck = 0;
         this.companyProfit = 0;
+        addNewCompanyToList(this);
     }
 
     public String getCompanyName() {
